@@ -6,3 +6,6 @@ sgg = kik[(kik['시도명']=='서울특별시') & (kik['시군구명'].notna()) 
 
 print(len(sgg))
 print(sgg[['행정동코드', '시군구명']].to_string())
+
+for _, row in sgg.iterrows():
+    print(f'    "{row["행정동코드"]}": "{row["시군구명"]}",')
