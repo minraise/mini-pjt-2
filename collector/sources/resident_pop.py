@@ -7,10 +7,10 @@ def extract_items(response: dict) -> list:
     """응답에서 item 리스트를 안전하게 꺼낸다.
     NODATA일 때 items가 빈 문자열("")로 오므로 그대로 인덱싱하면 에러."""
     items = response.get("Response", {}).get("items", "")
-    if not isinstance(items, dict):      # "" 이거나 예상 밖 타입
+    if not isinstance(items, dict):
         return []
     item = items.get("item", [])
-    # 결과가 1건이면 리스트가 아니라 dict 하나로 올 수 있으니 확인 필요
+
     if isinstance(item, dict):
         return [item]
     return item
@@ -40,9 +40,6 @@ def fetch_one(session, sgg_code: str, ym: str) -> list:
 
         collected.extend(items)
 
-        # ── TODO: 여기서 반복을 멈출 조건 ──
-        # 1) 이번에 받은 게 없으면 (무한루프 방지)
-        # 2) 지금까지 받은 개수가 total_count 이상이면
         if not items or len(collected) >= total_count:
             break
 

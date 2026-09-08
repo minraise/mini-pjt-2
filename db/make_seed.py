@@ -3,9 +3,7 @@ import random
 
 random.seed(42)
 
-# ══════════════════════════════════
 # 상수
-# ══════════════════════════════════
 YMS = ['2026-05', '2026-06', '2026-07', '2026-08']
 
 # 시간대별 배율 (0시~23시)
@@ -30,23 +28,19 @@ AGE_FACTOR = {
 AGE_BANDS = list(AGE_FACTOR.keys())
 GENDERS = ['M', 'F']
 
-# 데이터 누락 테스트용 (이 동의 이 월은 통째로 생략)
+# 데이터 누락 테스트용
 MISSING_CODE = '11110540'
 MISSING_YM = '2026-08'
 
 
-# ══════════════════════════════════
 # 대상 행정동 20개
-# ══════════════════════════════════
 kik = pd.read_excel('data/raw/KIKcd_H.20260720.xlsx')
 dong = kik[(kik['시도명'] == '서울특별시') & (kik['읍면동명'].notna())].head(20)
 
 lines = []
 
 
-# ══════════════════════════════════
 # 1. region
-# ══════════════════════════════════
 for _, row in dong.iterrows():
     code = str(row['행정동코드'])[:8]
     lines.append(
@@ -55,9 +49,7 @@ for _, row in dong.iterrows():
     )
 
 
-# ══════════════════════════════════
 # 2. mart_region_monthly
-# ══════════════════════════════════
 for _, row in dong.iterrows():
     code = str(row['행정동코드'])[:8]
     resident = random.randint(2000, 30000)
@@ -65,7 +57,7 @@ for _, row in dong.iterrows():
     base_ratio = random.uniform(0.5, 5.0)
 
     for ym in YMS:
-        # 누락 테스트: 특정 동의 특정 월은 아예 적재하지 않음
+        # 누락 테스트
         if code == MISSING_CODE and ym == MISSING_YM:
             continue
 
@@ -84,9 +76,7 @@ for _, row in dong.iterrows():
         )
 
 
-# ══════════════════════════════════
 # 3. mart_hourly_heatmap
-# ══════════════════════════════════
 for _, row in dong.iterrows():
     code = str(row['행정동코드'])[:8]
     base_pop = random.randint(4000, 135000)
@@ -112,9 +102,7 @@ for _, row in dong.iterrows():
             )
 
 
-# ══════════════════════════════════
 # 4. mart_age_profile
-# ══════════════════════════════════
 for _, row in dong.iterrows():
     code = str(row['행정동코드'])[:8]
     base_pop = random.randint(4000, 135000)
@@ -128,9 +116,7 @@ for _, row in dong.iterrows():
             )
 
 
-# ══════════════════════════════════
 # 파일 저장
-# ══════════════════════════════════
 with open('db/seed_dummy.sql', 'w', encoding='utf-8') as f:
     f.write('\n'.join(lines))
 
