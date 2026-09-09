@@ -15,7 +15,6 @@ def load_region_monthly(sigungu: str, ym_from: str, ym_to: str) -> pd.DataFrame:
                 m.avg_daily_pop,
                 m.weekday_pop,
                 m.weekend_pop,
-                m.peak_hour,
                 m.resident_pop,
                 m.store_count,
                 m.activity_ratio,

@@ -46,3 +46,18 @@ SLEEP_SEC = 0.3
 
 # DB
 DB_PATH = "data/warehouse.db"
+
+FLOW_FILES = {
+    '202605': {'zip': 'data/raw/250_LOCAL_RESD_ADMDONG_202605.zip', 'sep': ','},
+    '202606': {'zip': 'data/raw/250_LOCAL_RESD_ADMDONG_202606.zip', 'sep': ','},
+    '202607': {'zip': 'data/raw/250_LOCAL_RESD_ADMDONG_202607.zip', 'sep': ';'},
+    '202608': {'zip': 'data/raw/250_LOCAL_RESD_ADMDONG_202608.zip', 'sep': ';'},
+}
+
+FLOW_COLS = ['base_date', 'hour', 'region_code', 'total_pop'] + [
+    f'{g}_{b}' for g in ['male', 'female']
+    for b in ['0_9', '10_14', '15_19', '20_24', '25_29', '30_34', '35_39',
+              '40_44', '45_49', '50_54', '55_59', '60_64', '65_69', '70_over']
+]
+
+STORE_CSV = 'data/raw/소상공인시장진흥공단_상가_상권_정보_서울_202606.csv'

@@ -60,3 +60,34 @@ def heatmap_chart(df: pd.DataFrame):
     )
     fig.update_layout(margin=dict(t=20))
     return fig
+
+AGE_LABELS = {
+    'age_0_19': '0~19세',
+    'age_20_29': '20대',
+    'age_30_49': '30~40대',
+    'age_50_64': '50~60대 초반',
+    'age_65_over': '65세 이상',
+}
+GENDER_LABELS = {'M': '남성', 'F': '여성'}
+
+
+def age_chart(df: pd.DataFrame):
+    """연령대 × 성별 생활인구 구성 (그룹 막대)."""
+    d = df.copy()
+    d['age_band'] = d['age_band'].map(AGE_LABELS)
+    d['gender'] = d['gender'].map(GENDER_LABELS)
+
+    fig = px.bar(
+        d,
+        x='age_band',
+        y='avg_pop',
+        color='gender',
+        barmode='group',
+        labels={
+            'age_band': '연령대',
+            'avg_pop': '평균 생활인구(명)',
+            'gender': '성별',
+        },
+    )
+    fig.update_layout(margin=dict(t=20))
+    return fig

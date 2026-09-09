@@ -65,14 +65,13 @@ for _, row in dong.iterrows():
         avg_pop = resident * ratio
         weekday = avg_pop * random.uniform(1.0, 1.2)
         weekend = avg_pop * random.uniform(0.7, 1.0)
-        peak = random.randint(9, 21)
         activity_ratio = avg_pop / resident
         pop_per_store = avg_pop / store_cnt
 
         lines.append(
             f"INSERT INTO mart_region_monthly VALUES "
             f"('{code}', '{ym}', {avg_pop:.2f}, {weekday:.2f}, {weekend:.2f}, "
-            f"{peak}, {resident}, {store_cnt}, {activity_ratio:.3f}, {pop_per_store:.2f});"
+            f"{resident}, {store_cnt}, {activity_ratio:.3f}, {pop_per_store:.2f});"
         )
 
 
